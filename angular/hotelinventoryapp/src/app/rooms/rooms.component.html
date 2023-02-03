@@ -1,0 +1,51 @@
+<h1>Welcome to {{ hotelName }}</h1>
+<!-- <hinv-header></hinv-header> -->
+
+<!-- Async Pipe example: Takes care of the unsubscribe -->
+<!-- {{rooms$ | async | json }} -->
+<div [hidden]="hideRooms">
+  Number of Rooms
+  <div
+  [ngStyle]="{'color': rooms.availableRooms ? 'orange' : 'red'}"
+  [innerText]="numberOfRooms"></div>
+</div>
+
+{{ rooms?.availableRooms ?? "No rooms" }}
+<!-- {{ roomList | json }} -->
+
+<div *ngIf="selectedRoom">
+  {{ selectedRoom | json}}
+</div>
+
+<div>
+  <button (click)="addRoom()">Add Room</button>
+</div>
+
+<button (click)="toggle()">Toggle</button>
+
+
+<h1>
+  <!-- {{getError$ | async }} -->
+  Number of Rooms: {{roomsCount$ | async }}
+</h1>
+
+<!-- async as rooms will subscribe only once and async will subscribe everytime you call it so careful -->
+<!-- Avoid multiple async pipes on the same screens -->
+<div *ngIf="rooms$ | async as rooms">
+  <hinv-rooms-list 
+    [rooms]="rooms"
+    [title]="title"
+    (selectedRoom)="selectRoom($event)" 
+  >
+</hinv-rooms-list>
+</div>
+
+<button (click)="editRoom()">Edit</button>
+<button (click)="deleteRoom()">Delete</button>
+
+<h1>
+  {{totalBytes}}
+</h1>
+
+
+
